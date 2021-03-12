@@ -8,14 +8,19 @@ class UnblockiaService {
   }
 
   saveSite = (site) => {
-    const pr =this.api.post("/", {
+    const pr = this.api.post("/", {
       site,
     });
-    return pr
+    return pr;
   };
 
   getSite = (site) => {
     const pr = this.api.get(`/?site=${site}`);
+    return pr;
+  };
+
+  saveMobileTraffic = (site, mobileTraffic,email) => {
+    const pr = this.api.post(`/?site=${site}`, { mobileTraffic,email });
     return pr;
   };
 }

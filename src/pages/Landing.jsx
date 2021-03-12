@@ -83,6 +83,9 @@ export default function Landing(props) {
           placeholder="Enter your URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
+          onKeyPress={(e) => {
+            e.key === "Enter" && e.preventDefault();
+          }}
         />
         <p>{errorMessage}</p>
         <button onClick={handleMeasure}>MEASURE NOW</button>

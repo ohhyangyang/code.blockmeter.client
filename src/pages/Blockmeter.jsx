@@ -7,42 +7,74 @@ export default function Blockmeter(props) {
   const search = useLocation().search;
   const site = new URLSearchParams(search).get("site");
 
+  const initialMobile = 50;
+
   const [data, setData] = useState({
     monthly_users: 0,
     monthly_page_view: 0,
     mobile_traffic: 0,
-    unblock_trafic: 0,
+    unblock_traffic: 0,
     delta: 0,
   });
 
+  const [email, setEmail] = useState("");
+  const [errorMessage,setErrorMessage]=useState("");
 
   // slider
-  const [slider, setSlider] = React.useState(0);
+  const [slider, setSlider] = useState(initialMobile);
+  const [newUnblockT, setNewUnblockT] = useState(0);
   const marks = [{ value: 0 }, { value: 100 }];
   const handleChange = (event, newSlider) => {
     setSlider(newSlider);
   };
 
-
   // get site data
-  useEffect(async () => {
+  useEffect(() => {
     unblockiaService
       .getSite(site)
       .then((res) => {
         console.log(res.data[0]);
         setData(res.data[0]);
-        setSlider(res.data[0].unblock_trafic)
+        setNewUnblockT(res.data[0].unblock_traffic);
       })
       .catch((err) => console.log(err));
   }, [site]);
 
-  const {
-    monthly_users,
-    monthly_page_view,
-    mobile_traffic,
-    unblock_trafic,
-    delta,
-  } = data;
+  const { monthly_users, monthly_page_view, unblock_traffic, delta } = data;
+
+  // move slider
+  useEffect(() => {
+    console.log("slider", 100 - slider);
+    console.log("newUnblockT", newUnblockT);
+    console.log("mobile", initialMobile);
+    const modified = Math.ceil(
+      (unblock_traffic / (101 - initialMobile)) * (101 - slider)
+    );
+    setNewUnblockT(modified);
+  }, [slider]);
+
+  const validateEmail = (email) => {
+    const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+    return emailRegEx.test(email);
+  };
+
+  // emaill submission
+  const handleClick = () => {
+    console.log("testing");
+
+    // email validation d
+    if(validateEmail(email)){
+      console.log("valid")
+      unblockiaService.saveMobileTraffic(site, slider, email).then((res) => {
+        console.log(res.data);
+        props.history.push(`/message`);
+      });
+    }else{
+      setErrorMessage("The email is not valid")
+    }
+  
+    
+  };
 
   return monthly_users === 0 ? null : (
     <div>
@@ -60,20 +92,23 @@ export default function Blockmeter(props) {
         <div>
           <div>
             <p>
-              {unblock_trafic - delta}-{unblock_trafic + delta} %
+              {newUnblockT}-{newUnblockT + delta} %
             </p>
+
+            {newUnblockT}
+            <br />
+
             <small>Unblock traffic you can get with us. *</small>
           </div>
           <div>
             <p>Mobile traffic</p>
             <Slider
-              defaultValue={60}
               value={slider}
               onChange={handleChange}
               aria-labelledby="continuous-slider"
               marks={marks}
             />
-            <p>{slider}</p>
+            <p>{slider} %</p>
           </div>
         </div>
       </div>
@@ -82,8 +117,20 @@ export default function Blockmeter(props) {
         <p>Want more insights to start monetizing your adblock traffic?</p>
 
         <form>
-          <input type="text" placeholder="Type your email" />
-          <img src="/images/key.png" alt="unblockia-lock" />
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyPress={(e) => {
+              e.key === "Enter" && e.preventDefault();
+            }}
+          />
+          <img
+            onClick={handleClick}
+            src="/images/key.png"
+            alt="unblockia-lock"
+          />
+          <p>{errorMessage}</p>
         </form>
       </div>
     </div>
