@@ -95,7 +95,6 @@ export default function Blockmeter(props) {
               {newUnblockT}-{newUnblockT + delta} %
             </p>
 
-            {newUnblockT}
             <br />
 
             <small>Unblock traffic you can get with us. *</small>
