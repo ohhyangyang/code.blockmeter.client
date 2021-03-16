@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import unblockiaService from "../lib/unblockia-service";
 import { useLocation } from "react-router-dom";
 import Slider from "@material-ui/core/Slider";
+import "../styles/css/main.css"
 
 export default function Blockmeter(props) {
   const search = useLocation().search;
@@ -77,7 +78,7 @@ export default function Blockmeter(props) {
   };
 
   return monthly_users === 0 ? null : (
-    <div>
+    <div className="blockmeter">
       <div>
         <img src="/images/key.png" alt="unblockia-key" />
         <h2>Blockmeter</h2>

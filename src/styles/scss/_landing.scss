@@ -1,0 +1,83 @@
+.landing {
+  background-color: #414179;
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr;
+  transition: 1s;
+
+  .slogan {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    
+    margin: auto;
+    margin-left: 100px;
+    p {
+      font-size: 5.5rem;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    b {
+      font-weight: 600;
+    }
+  }
+
+  .measure-traffic {
+    width: 35vw;
+    margin: auto;
+
+    color: white;
+    font-size: 1.4rem;
+
+    .logo {
+      font-weight: 600;
+      margin-bottom: 40px;
+      img {
+        width: 40px;
+      }
+    }
+    .p1 {
+      color: $secondary-color;
+      font-weight: 500;
+    }
+
+    form {
+      margin-left: 30px;
+      input {
+        width: 60%;
+        border: none;
+        background-color: transparent;
+        margin-top: 40px;
+
+        margin-bottom: 10px;
+
+        border-bottom: 2px solid $transparent-white;
+        padding-bottom: 10px;
+        font-weight: 100;
+        color: white;
+        &::placeholder {
+          color: $transparent-white;
+          font-weight: 500;
+          font-size: 1.3rem;
+        }
+      }
+      .error {
+        height: 20px;
+        font-size: 0.8rem;
+        color: $secondary-color;
+        margin-bottom: 10px;
+      }
+      button {
+        background-color: $secondary-color;
+
+        border: none;
+        color: rgba($color: white, $alpha: 0.8);
+        padding: 10px;
+        border-radius: 10px;
+        font-family: "Ubuntu", sans-serif;
+        font-size: 1rem;
+      }
+    }
+  }
+}

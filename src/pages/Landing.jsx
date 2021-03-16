@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import unblockiaService from "../lib/unblockia-service";
+import "../styles/css/main.css";
+import {motion} from "framer-motion";
 
 export default function Landing(props) {
   const [url, setUrl] = useState("");
@@ -20,7 +22,8 @@ export default function Landing(props) {
         return url;
       }
     } else {
-      setErrorMessage("URL you entered is not valid");
+
+      setErrorMessage("The URL you entered is not valid");
     }
   };
 
@@ -46,6 +49,7 @@ export default function Landing(props) {
             });
           } else {
             console.log("old site", res.data[0]);
+
             //redirection
             props.history.push(`/blockmeter/?site=${site}`);
           }
@@ -57,10 +61,10 @@ export default function Landing(props) {
   };
 
   return (
-    <div>
-      <div>
+    <div className="landing">
+      <div className="slogan">
         <div>
-          Don´t settle
+          <p>Don´t settle</p>
           <h1>
             With Unblockia
             <br />
@@ -69,27 +73,33 @@ export default function Landing(props) {
         </div>
       </div>
 
-      <div>
-        <div>
-          <img src="/images/key.png" alt="unblockia-key" />
+      <div className="measure-traffic">
+        <div className="logo">
+          <img src="/images/key.svg" alt="unblockia-key" />
           <span>Blockmeter</span>
         </div>
-        <p>Measure how much adblock traffic you can restore and monetize</p>
+        <p className="p1">
+          Measure how much adblock traffic you can restore and monetize
+        </p>
+        <form>
+          <input
+            type="text"
+            placeholder="Enter your URL"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            onKeyPress={(e) => {
+              e.key === "Enter" && e.preventDefault();
+            }}
+          />
+          <motion.p className="error"
+            initial={{opacity:0}}
+            animate={{opacity:1}}
+            transition={{delay:1.5}}
+          
+          >{errorMessage}</motion.p>
+          <button onClick={handleMeasure}>MEASURE NOW</button>
+        </form>
       </div>
-
-      <form>
-        <input
-          type="text"
-          placeholder="Enter your URL"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          onKeyPress={(e) => {
-            e.key === "Enter" && e.preventDefault();
-          }}
-        />
-        <p>{errorMessage}</p>
-        <button onClick={handleMeasure}>MEASURE NOW</button>
-      </form>
     </div>
   );
 }
