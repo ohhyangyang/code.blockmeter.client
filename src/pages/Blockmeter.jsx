@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import unblockiaService from "../lib/unblockia-service";
 import { useLocation } from "react-router-dom";
 import Slider from "@material-ui/core/Slider";
-import "../styles/css/main.css"
+import "../styles/css/main.css";
+import AnimatedNumber from "animated-number-react";
+import { motion } from "framer-motion";
 
 export default function Blockmeter(props) {
   const search = useLocation().search;
   const site = new URLSearchParams(search).get("site");
+  const inputRef = useRef(null);
 
   const initialMobile = 50;
 
@@ -19,7 +22,7 @@ export default function Blockmeter(props) {
   });
 
   const [email, setEmail] = useState("");
-  const [errorMessage,setErrorMessage]=useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // slider
   const [slider, setSlider] = useState(initialMobile);
@@ -64,75 +67,138 @@ export default function Blockmeter(props) {
     console.log("testing");
 
     // email validation d
-    if(validateEmail(email)){
-      console.log("valid")
+    if (validateEmail(email)) {
+      console.log("valid");
       unblockiaService.saveMobileTraffic(site, slider, email).then((res) => {
         console.log(res.data);
         props.history.push(`/message`);
       });
-    }else{
-      setErrorMessage("The email is not valid")
+    } else {
+      setErrorMessage("The email is not valid");
     }
-  
-    
   };
 
-  return monthly_users === 0 ? null : (
-    <div className="blockmeter">
-      <div>
-        <img src="/images/key.png" alt="unblockia-key" />
-        <h2>Blockmeter</h2>
+  // number counter
+  const formatValue = (value) => value.toFixed(0);
+
+  // ///////////////////////
+
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // })
+
+  const handleTransitionEnd=()=>{
+    console.log("testing")
+    inputRef.current.focus();
+  }
+
+  const containerVariants = {
+    hidden: {
+      x: "100vw",
+      opacity: 0,
+    },
+    visible: {
+      x: "0",
+      opacity: 1,
+      transition: { durantion: 5 },
+    },
+    exit: {
+      x: "-100vw",
+      transition: { when: "beforeChildren", ease: "easeInOut", duration: 0.5 },
+    },
+  };
+
+  return (
+    <motion.div
+      className="blockmeter"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      onAnimationComplete={handleTransitionEnd}
+    >
+      <div className="logo">
+        <img src="/images/key.svg" alt="unblockia-key" />
+        <span>Blockmeter</span>
       </div>
 
-      <div>
-        <div>
-          <p>www.{site}</p>
+      <div className="result">
+        <div className="left">
+          <p className="site">www.{site}</p>
           <p>Monthly users: {monthly_users} M</p>
           <p>Monthly page views: {monthly_page_view} M</p>
         </div>
-        <div>
-          <div>
-            <p>
-              {newUnblockT}-{newUnblockT + delta} %
+        <div className="right">
+          <div className="unblock-traffic">
+            <p className="counter">
+              <AnimatedNumber
+                value={newUnblockT}
+                formatValue={formatValue}
+                duration="800"
+              />
+              -
+              <AnimatedNumber
+                value={newUnblockT + delta}
+                formatValue={formatValue}
+                duration="800"
+              />
+              %
             </p>
 
-            <br />
+      
 
-            <small>Unblock traffic you can get with us. *</small>
+            <p className="small">
+        
+              <small>
+                The approximate percentage of blocked traffic on your website. *
+              </small>
+            </p>
           </div>
-          <div>
+
+          <div className="mobile-traffic">
             <p>Mobile traffic</p>
-            <Slider
-              value={slider}
-              onChange={handleChange}
-              aria-labelledby="continuous-slider"
-              marks={marks}
-            />
-            <p>{slider} %</p>
+            <div className="slider">
+              <Slider
+                value={slider}
+                onChange={handleChange}
+                aria-labelledby="continuous-slider"
+                marks={marks}
+              />
+              <p>{slider} %</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div>
-        <p>Want more insights to start monetizing your adblock traffic?</p>
+      <div className="email-form">
+        <p className="question">Want more insights to start monetizing your adblock traffic?</p>
 
         <form>
           <input
             type="text"
+            placeholder="Type your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             onKeyPress={(e) => {
               e.key === "Enter" && e.preventDefault();
             }}
+            ref={inputRef}
           />
           <img
             onClick={handleClick}
-            src="/images/key.png"
+            src="/images/arrow.svg"
             alt="unblockia-lock"
           />
-          <p>{errorMessage}</p>
+          <motion.p
+            className="error"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2 }}
+          >
+            {errorMessage}
+          </motion.p>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }

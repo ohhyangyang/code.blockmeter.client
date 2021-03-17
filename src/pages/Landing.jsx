@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import unblockiaService from "../lib/unblockia-service";
 import "../styles/css/main.css";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Landing(props) {
   const [url, setUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const inputRef = useRef(null);
 
   // url validation
   const urlValidator = (url) => {
@@ -22,7 +23,6 @@ export default function Landing(props) {
         return url;
       }
     } else {
-
       setErrorMessage("The URL you entered is not valid");
     }
   };
@@ -60,8 +60,43 @@ export default function Landing(props) {
     }
   };
 
+  // styling
+
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // })
+
+  const handleTransitionEnd=()=>{
+    inputRef.current.focus();
+  }
+
+  const containerVariants = {
+    hidden: {
+      y: "50vh",
+      opacity: 0,
+    },
+    visible: {
+      y: "0vh",
+      x:"0vw",
+      opacity: 1,
+      transition: { durantion: 1 },
+    },
+    exit: {
+      x: "-100vw",
+      transition: { when: "beforeChildren", ease: "easeInOut", duration: 0.5  },
+    }
+  };
+
   return (
-    <div className="landing">
+    <motion.div
+      className="landing"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      onAnimationComplete={handleTransitionEnd}
+
+    >
       <div className="slogan">
         <div>
           <p>Don´t settle</p>
@@ -90,16 +125,19 @@ export default function Landing(props) {
             onKeyPress={(e) => {
               e.key === "Enter" && e.preventDefault();
             }}
+            ref={inputRef}
           />
-          <motion.p className="error"
-            initial={{opacity:0}}
-            animate={{opacity:1}}
-            transition={{delay:1.5}}
-          
-          >{errorMessage}</motion.p>
+          <motion.p
+            className="error"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2 }}
+          >
+            {errorMessage}
+          </motion.p>
           <button onClick={handleMeasure}>MEASURE NOW</button>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }

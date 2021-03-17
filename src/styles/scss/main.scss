@@ -2,10 +2,19 @@
 @import "config";
 @import "landing";
 @import "blockmeter";
+@import "message";
 
 #root{
     // font-family: 'Montserrat', sans-serif;
     font-family: 'Ubuntu', sans-serif;
+
+    
+    padding-top: 200px;
+}
+
+html{
+    background-color: #414179;
+    height: 100vh;
 }
 
 html, body, div, span, applet, object, iframe,

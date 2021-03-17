@@ -1,15 +1,15 @@
 .landing {
-  background-color: #414179;
+
   display: grid;
-  height: 100vh;
+  // height: 100vh;
   grid-template-columns: 1fr 1fr;
-  transition: 1s;
+
 
   .slogan {
     color: white;
     font-family: 'Montserrat', sans-serif;
     
-    margin: auto;
+    // margin: auto;
     margin-left: 100px;
     p {
       font-size: 5.5rem;
@@ -25,15 +25,18 @@
 
   .measure-traffic {
     width: 35vw;
-    margin: auto;
+    margin-right: auto;  
+    margin-left: auto;
 
     color: white;
     font-size: 1.4rem;
 
     .logo {
       font-weight: 600;
+      font-size: 2rem;
       margin-bottom: 40px;
       img {
+        margin-right: 10px;
         width: 40px;
       }
     }

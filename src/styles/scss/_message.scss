@@ -1,0 +1,15 @@
+.message{
+    p{
+        margin: auto;
+        width: 40vw;
+        font-size: 2rem;
+        padding-top: 100px;
+        line-height: 2.8rem;
+
+        span{
+            color: $secondary-color;
+        }
+    }
+    height: 100vh;
+    color: white;
+}
