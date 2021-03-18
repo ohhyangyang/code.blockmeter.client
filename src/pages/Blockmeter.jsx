@@ -81,7 +81,6 @@ export default function Blockmeter(props) {
   // number counter
   const formatValue = (value) => value.toFixed(0);
 
-  // ///////////////////////
 
   // useEffect(() => {
   //   inputRef.current.focus();
@@ -89,7 +88,7 @@ export default function Blockmeter(props) {
 
   const handleTransitionEnd = () => {
     console.log("testing");
-    inputRef.current.focus();
+    // inputRef.current.focus();
   };
 
   const containerVariants = {
@@ -202,7 +201,7 @@ export default function Blockmeter(props) {
               d="M21.457,15.05H.82a.82.82,0,0,0-.82.82V19.7a.82.82,0,0,0,.82.82H21.457v3.148a1.64,1.64,0,0,0,2.8,1.16l5.882-5.882a1.64,1.64,0,0,0,0-2.32l-5.882-5.882a1.64,1.64,0,0,0-2.8,1.16Z"
               transform="translate(0 -10.258)"
               fill="#fff"
-            ></path>{" "}
+            ></path>
           </svg>
 
           

@@ -114,6 +114,14 @@
   .landing .measure-traffic form input {
     width: 100%;
   }
+  .landing .measure-traffic form button:hover {
+    background-color: transparent;
+    color: #24bc66;
+  }
+  .landing .measure-traffic form button:active {
+    background-color: #24bc66;
+    color: rgba(255, 255, 255, 0.8);
+  }
 }
 @media screen and (max-width: 480px) {
   .landing .slogan p {
@@ -317,6 +325,15 @@
   }
   .blockmeter .email-form form input {
     width: 85%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .email-form form svg path {
+    fill: yellow;
+    transition: 0.5s;
+  }
+  .email-form form svg:hover path {
+    fill: red;
   }
 }
 @media screen and (max-width: 480px) {

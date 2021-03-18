@@ -136,6 +136,19 @@
         input{
           width: 100%;
         }
+
+        button{
+          &:hover{
+          
+            background-color: transparent;
+            color: $secondary-color;
+          }
+          &:active{
+          
+            background-color: $secondary-color;
+          color: rgba($color: white, $alpha: 0.8);
+          }
+        }
       }
       
     }
