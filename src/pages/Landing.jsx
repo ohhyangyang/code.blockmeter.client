@@ -23,7 +23,7 @@ export default function Landing(props) {
         return url;
       }
     } else {
-      setErrorMessage("The URL you entered is not valid");
+      setErrorMessage("Please enter a valid URL address");
     }
   };
 
@@ -131,7 +131,7 @@ export default function Landing(props) {
             className="error"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 2 }}
+            transition={{ delay: 1.5 }}
           >
             {errorMessage}
           </motion.p>

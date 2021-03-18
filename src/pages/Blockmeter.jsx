@@ -74,7 +74,7 @@ export default function Blockmeter(props) {
         props.history.push(`/message`);
       });
     } else {
-      setErrorMessage("The email is not valid");
+      setErrorMessage("Please enter a valid Email address");
     }
   };
 
@@ -87,10 +87,10 @@ export default function Blockmeter(props) {
   //   inputRef.current.focus();
   // })
 
-  const handleTransitionEnd=()=>{
-    console.log("testing")
+  const handleTransitionEnd = () => {
+    console.log("testing");
     inputRef.current.focus();
-  }
+  };
 
   const containerVariants = {
     hidden: {
@@ -145,10 +145,7 @@ export default function Blockmeter(props) {
               %
             </p>
 
-      
-
             <p className="small">
-        
               <small>
                 The approximate percentage of blocked traffic on your website. *
               </small>
@@ -171,7 +168,9 @@ export default function Blockmeter(props) {
       </div>
 
       <div className="email-form">
-        <p className="question">Want more insights to start monetizing your adblock traffic?</p>
+        <p className="question">
+          Want more insights to start monetizing your adblock traffic?
+        </p>
 
         <form>
           <input
@@ -184,11 +183,29 @@ export default function Blockmeter(props) {
             }}
             ref={inputRef}
           />
-          <img
+          {/* <img
             onClick={handleClick}
             src="/images/arrow.svg"
             alt="unblockia-lock"
-          />
+          /> */}
+
+          <svg
+          onClick={handleClick}
+            xmlns="http://www.w3.org/2000/svg"
+            width="30.62"
+            height="15.051"
+            viewBox="0 0 30.62 15.051"
+          >
+            <path
+              id="Icon_awesome-long-arrow-alt-right"
+              data-name="Icon awesome-long-arrow-alt-right"
+              d="M21.457,15.05H.82a.82.82,0,0,0-.82.82V19.7a.82.82,0,0,0,.82.82H21.457v3.148a1.64,1.64,0,0,0,2.8,1.16l5.882-5.882a1.64,1.64,0,0,0,0-2.32l-5.882-5.882a1.64,1.64,0,0,0-2.8,1.16Z"
+              transform="translate(0 -10.258)"
+              fill="#fff"
+            ></path>{" "}
+          </svg>
+
+          
           <motion.p
             className="error"
             initial={{ opacity: 0 }}

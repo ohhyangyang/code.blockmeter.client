@@ -13,3 +13,29 @@
     height: 100vh;
     color: white;
 }
+
+@media screen and (max-width:768px){
+    .message{
+        p{
+            width: 60vw;
+        }
+    }
+}
+@media screen and (max-width:480px){
+    .message{
+        p{
+            width: 60vw;
+            font-size: 1.2rem;
+            line-height: 2rem;
+        }
+    }
+}
+@media screen and (max-width:320px){
+    .message{
+        p{
+            width: 80vw;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+    }
+}
